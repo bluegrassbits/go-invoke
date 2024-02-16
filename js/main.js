@@ -73,6 +73,8 @@ var GOINVOKE = {
     gallery: document.getElementById('results-gallery'),
     username: document.getElementById('username'),
     password: document.getElementById('password'),
+    connect: document.getElementById('connect'),
+    shuffle: document.getElementById('shuffle'),
   },
 
   config: {
@@ -96,6 +98,7 @@ var GOINVOKE = {
   },
 
   init: function() {
+    // populate scheduler dropdown
     for (var key in this.schedulers) {
       var el = document.createElement('option');
       el.value = this.schedulers[key];
@@ -104,21 +107,56 @@ var GOINVOKE = {
       this.elms.scheduler.appendChild(el);
     }
 
-    for (var key in this.config) {
-      var el = document.getElementById(key);
+    // add button event listeners
+    this.elms.connect.onclick = () => { this.connect(); };
+    this.elms.shuffle.onclick = () => { this.shuffleSeed(); };
+    this.elms.generate.onclick = () => { this.enqueueBatch(); };
+    this.elms.cancel.onclick = () => { this.cancelBatch(); };
+    this.elms.clear.onclick = () => { this.clearQueue(); };
+
+    // load saved values from localStorage
+    for (let key in this.config) {
+      let el = document.getElementById(key);
       this.config[key] = this.getSaved(key) || this.config[key];
+      console.log(key, this.config[key]);
 
       if(el) {
         switch(el.type) {
+          case 'text':
+            el.value = this.config[key];
+            el.onkeyup = () => {
+              this.saveThis({id: key, value: el.value});
+            }
+            break;
+
+          case 'textarea':
+            el.value = this.config[key];
+            el.onkeyup = () => {
+              this.saveThis({id: key, value: el.value});
+            }
+            break;
+
           case 'checkbox':
             el.checked = this.config[key] == 'true';
+
             if(key == 'random') {
               this.elms.seed.disabled = el.checked;
             }
+
+            el.onchange = () => {
+              this.saveThis({id: key, value: el.checked});
+
+              if(key == 'random') {
+                this.elms.seed.disabled = el.checked;
+              }
+            };
             break;
 
           default:
             el.value = this.config[key];
+            el.onchange = () => {
+              this.saveThis({id: key, value: el.value});
+            };
             break;
         }
       }
@@ -126,15 +164,35 @@ var GOINVOKE = {
 
     if(this.config.address) this.refreshData();
 
-    for(var key in this.sections) {
-      var section = this.sections[key];
+    // open all sections that were open when the page was last closed
+    for(let key in this.sections) {
+      let section = this.sections[key];
       section.open = this.getSaved(key) == 'true';
       section.elm.open = section.open;
+
+      let summary = section.elm.querySelector('summary');
+      summary.onclick = () => { this.toggleDetails(key); };
+    }
+
+    // find all .spinner-button elements and add setpUp and stepDown
+    // based on data-target and data-action attributes
+
+    let spinnerButtons = document.querySelectorAll('.spinner-button');
+    for (let spinnerButton of spinnerButtons) {
+      let target = spinnerButton.getAttribute('data-target');
+      let action = spinnerButton.getAttribute('data-action');
+
+      spinnerButton.onclick = () => {
+        if (action == 'increment') {
+          this.stepUp(spinnerButton, target);
+        } else if (action == 'decrement') {
+          this.stepDown(spinnerButton, target);
+        }
+      }
     }
   },
 
   connect: function() {
-    /* make basic auth request to server using xhr */
     var serverAddress = this.elms.address.value;
     var username = this.elms.username.value;
     var password = this.elms.password.value;
