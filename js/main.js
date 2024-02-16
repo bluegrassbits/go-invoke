@@ -382,7 +382,7 @@ var GOINVOKE = {
       this.elms.gallery.innerHTML = '';
 
       for (let i = 0; i < data.items.length; i++) {
-        const imageContainer = document.createElement('div');
+        let imageContainer = document.createElement('div');
         imageContainer.classList.add('gallery-image-container');
         this.elms.gallery.appendChild(imageContainer);
 
@@ -399,7 +399,7 @@ var GOINVOKE = {
           } else {
             this.elms.output.src = serverAddress + '/' + image.image_url;
             this.elms.output.style.display = 'block';
-
+            let imageContainer = img.parentElement;
             imageContainer.classList.add('selected');
             this.selectedImage = image;
           }
