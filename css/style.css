@@ -666,7 +666,6 @@ button#connect {
   color: var(--text-color-0);
   font-weight: 600;
   width: 2em;
-  height: 2.5em;
   font-size: 1rem;
   align-items: center;
   justify-content: center;
@@ -707,7 +706,7 @@ button#connect {
 
 .spinner-buttons {
   display: flex;
-  height: calc(100% - 2px);
+  height: 2.5em;
   flex-direction: column;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   border: 1px solid var(--surface-color-1);
@@ -770,7 +769,6 @@ button#connect {
   main {
     padding: 0;
     border-radius: 0;
-    margin: 0;
   }
 
   .results { padding: 1rem 0; }
