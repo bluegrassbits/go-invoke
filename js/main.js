@@ -18,7 +18,11 @@ var GOINVOKE = {
     image: {
       open: true,
       elm: document.getElementById('image')
-    }
+    },
+    server: {
+      open: true,
+      elm: document.getElementById('server')
+    },
   },
 
   schedulers: {
