@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GoInvoke">
+    <meta name="author" content="Bluegrass Bits">
+
+    <link rel="icon" href="/img/logo.svg">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <title>GoInvoke</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo-wrap">
+        <img class="logo" src="/img/logo.svg" alt="GoInvoke Logo">
+        <h3>GoInvoke</h3>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h3>Settings</h3>
+        <details id="server" open>
+          <summary
+            onclick='GOINVOKE.toggleDetails("server")'>Server
+            <span class="icon"></span>
+          </summary>
+          <div class="input-row-mobile">
+            <label for="endpoint">Address
+              <input
+                placeholder="http://localhost:8080"
+                id="address"
+                type="text"
+                name="address"
+                onkeyup='GOINVOKE.saveThis(this)' required>
+            </label>
+          </div>
+
+          <div class="input-row-mobile">
+            <label>Basic Auth (optional)</label>
+          </div>
+
+          <div class="input-row-mobile">
+            <label for="username">Username
+              <input
+                placeholder="username"
+                id="username"
+                type="text"
+                name="username"
+                onkeyup='GOINVOKE.saveThis(this)'>
+            </label>
+
+            <label for="password">Password
+              <div class="auth-wrap">
+                <input
+                  placeholder="password"
+                  id="password"
+                  type="password"
+                  name="password"/>
+
+                <button id="connect"
+                  onclick='GOINVOKE.connect()'>Connect</button>
+              </div>
+            </label>
+          </div>
+        </details>
+
+        <details id="prompt">
+          <summary
+            onclick='GOINVOKE.toggleDetails("prompt")'>Prompt
+            <span class="icon"></span>
+          </summary>
+          <div class="details-wrap">
+            <div class="input-row">
+              <label for="positive_prompt">
+                <textarea
+                  placeholder="Positive"
+                  class="positive-prompt"
+                  id="positive_prompt"
+                  name="positive_prompt"
+                  onkeyup='GOINVOKE.saveThis(this)' required></textarea>
+              </label>
+
+              <label for="negative_prompt">
+                <textarea
+                  placeholder="Negative"
+                  class="negative-prompt"
+                  id="negative_prompt"
+                  name="negative_prompt"
+                  onkeyup='GOINVOKE.saveThis(this)' required></textarea>
+              </label>
+            </div>
+          </div>
+        </details>
+
+        <details id="generation">
+          <summary
+            onclick='GOINVOKE.toggleDetails("generation")'>Generation
+            <span class="icon"></span>
+          </summary>
+          <div class="input-row-mobile">
+            <label for="model">Model
+              <select
+                id="model"
+                onchange='GOINVOKE.saveThis(this)'
+                name="model" required></select>
+            </label>
+
+            <label for="scheduler">Scheduler
+              <select
+                id="scheduler"
+                onchange='GOINVOKE.saveThis(this)'
+                name="scheduler" required></select>
+            </label>
+          </div>
+
+          <div class="input-row-mobile">
+            <label for="steps">Steps
+              <div class="input-wrap">
+                <button class="spinner-button"
+                  onclick='GOINVOKE.stepDown(this, "steps")'>-</button>
+                <input
+                  id="steps"
+                  type="number"
+                  inputmode="numeric"
+                  name="steps"
+                  value="20"
+                  onchange='GOINVOKE.saveThis(this)' required>
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepUp(this, "steps")'>+</button>
+              </div>
+            </label>
+
+            <label for="cfg_scale">CFG Scale
+              <div class="input-wrap">
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepDown(this, "cfg_scale")'>-</button>
+                <input
+                  id="cfg_scale"
+                  type="number"
+                  inputmode="numeric"
+                  name="cfg_scale"
+                  value="7.5"
+                  min="1"
+                  step="0.1"
+                  onchange='GOINVOKE.saveThis(this)' required>
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepUp(this, "cfg_scale")'>+</button>
+              </div>
+            </label>
+          </div>
+        </details>
+
+        <details id="image">
+          <summary
+            onclick='GOINVOKE.toggleDetails("image")'>Image
+            <span class="icon"></span>
+          </summary>
+          <div class="input-row-mobile">
+            <label for="height">Height
+              <div class="input-wrap">
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepDown(this, "height")'>-</button>
+                <input
+                  id="height"
+                  type="number"
+                  inputmode="numeric"
+                  name="height"
+                  value="512"
+                  min="0"
+                  step="64"
+                  onchange='GOINVOKE.saveThis(this)' required>
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepUp(this, "height")'>+</button>
+              </div>
+            </label>
+
+            <label for="width">Width
+              <div class="input-wrap">
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepDown(this, "width")'>-</button>
+                <input
+                  id="width"
+                  type="number"
+                  inputmode="numeric"
+                  name="width"
+                  value="512"
+                  min="0"
+                  step="64"
+                  onchange='GOINVOKE.saveThis(this)' required>
+                <button
+                  class="spinner-button"
+                  onclick='GOINVOKE.stepUp(this, "width")'>+</button>
+              </div>
+            </label>
+          </div>
+
+          <div class="input-row-mobile">
+            <label for="seed">Seed
+              <div class="seed-wrap">
+                <div class="input-wrap">
+                  <button
+                    class="spinner-button"
+                    onclick='GOINVOKE.stepDown(this, "seed")'>-</button>
+                  <input
+                    id="seed"
+                    type="number"
+                    inputmode="numeric"
+                    name="seed"
+                    value="0"
+                    min="0"
+                    step="1"
+                    onchange='GOINVOKE.saveThis(this)'>
+                  <button
+                    class="spinner-button"
+                    onclick='GOINVOKE.stepUp(this, "seed")'>+</button>
+                </div>
+
+                <button id="shuffle" class="icon-button warn"
+                  title="Shuffle Seed"
+                  onclick='GOINVOKE.shuffleSeed()'>
+                  &#x2684;
+                </button>
+              </div>
+            </label>
+
+            <label for="random">Random
+              <div class="checkbox-wrap">
+                <input
+                  id="random"
+                  type="checkbox"
+                  name="random"
+                  onchange='GOINVOKE.saveThis(this)'>
+              </div>
+            </label>
+          </div>
+        </details>
+
+        <div class="settings-footer">
+          <div class="submit-wrap">
+            <div class="pending-count" id="pending-count">
+              <span id="pending">0</span>
+            </div>
+
+            <button id="generate" class="submit"
+              onclick='GOINVOKE.enqueueBatch()'>Invoke</button>
+
+            <input
+              id="queue_size"
+              type="number"
+              inputmode="numeric"
+              name="queue_size"
+              value="1"
+              min="1"
+              step="1"
+              onchange='GOINVOKE.saveThis(this)' required>
+
+            <div class="spinner-buttons">
+              <button
+                class="spinner-button"
+                onclick='GOINVOKE.stepUp(this, "queue_size")'>+</button>
+              <button
+                class="spinner-button"
+                onclick='GOINVOKE.stepDown(this, "queue_size")'>-</button>
+            </div>
+          </div>
+
+          <button id="cancel"
+            class="icon-button"
+            title="Cancel current invocation" disabled
+            onclick='GOINVOKE.cancelBatch()'>&#x2715;</button>
+
+          <button id="clear"
+            class="icon-button"
+            title="Clear Queue" disabled
+            onclick='GOINVOKE.clearQueue()'>&#x2297;</button>
+        </div>
+      </section>
+
+      <figure>
+        <div class="box error-box" id="error">
+        </div>
+        <img id="output"
+          src=""
+          alt="Generated Image">
+
+        <div class="percent-wrap">
+          <div class="percent">
+            <div class="percent-bar" id="percent-bar"></div>
+          </div>
+        </div>
+
+      </figure>
+
+      <section class="results">
+        <h3>Results</h3>
+
+        <div class="results-gallery-wrap">
+          <div class="results-gallery" id="results-gallery">
+          </div>
+        </div>
+
+        <div id="metadata">
+          <table id="metadata-table" class="metadata-table">
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>GoInvoke</p>
+      <p>
+        Developed by
+        <a href="https://bluegrassbits.com" target="_blank">
+          Bluegrass Bits
+        </a>
+      </p>
+      <p>
+        Powered by
+        <a href="https://github.com/invoke-ai/InvokeAI" target="_blank">
+          InvokeAI
+        </a>
+      </p>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/socket.io.min.js"></script>
+  </body>
+</html>
