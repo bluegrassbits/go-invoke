@@ -1,4 +1,3 @@
-var lastInputTime = new Date().getTime();
 var GOINVOKE = {
   socket: null,
   queueItemID: null,
