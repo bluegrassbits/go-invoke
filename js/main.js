@@ -382,7 +382,7 @@ var GOINVOKE = {
       this.elms.gallery.innerHTML = '';
 
       for (let i = 0; i < data.items.length; i++) {
-        let imageContainer = document.createElement('div');
+        var imageContainer = document.createElement('div');
         imageContainer.classList.add('gallery-image-container');
         this.elms.gallery.appendChild(imageContainer);
 
