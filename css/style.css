@@ -36,7 +36,7 @@ body, html {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: var(--document-background-color);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body, h1, h2, h3, h4, h5, h6, p {
@@ -44,10 +44,10 @@ body, h1, h2, h3, h4, h5, h6, p {
   padding: 0;
 }
 
-section h3 { margin: 0 0 1em 0; }
+section h3 { margin: 0 0 1rem 0; }
 
 section {
-  padding: 1em;
+  padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
@@ -55,7 +55,7 @@ section {
 input,
 button,
 select {
-  font-size: 1em;
+  font-size: 1rem;
   padding: 0.5em;
   height: 2.5em;
   border-radius: var(--border-radius);
@@ -111,7 +111,7 @@ button.submit {
   background-color: var(--green-1);
   color: white;
   border: 1px solid var(--green-1);
-  padding: 0.5em 1em;
+  padding: 0.5em 1rem;
   border-radius: var(--border-radius) 0 0 var(--border-radius);
   font-weight: 600;
   box-shadow: var(--box-shadow);
@@ -182,7 +182,7 @@ textarea.negative-prompt {
 header {
   width: 100%;
   color: var(--text-color-0);
-  padding: 1em;
+  padding: 1rem;
   text-align: center;
   justify-content: center;
   border-bottom: 1px solid var(--surface-color-1);
@@ -195,7 +195,7 @@ details {
   box-shadow: var(--box-shadow);
   background-color: var(--surface-color-0);
   color: var(--text-color-0);
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
   transition: all 0.3s;
 }
 
@@ -203,7 +203,7 @@ details summary {
   display: flex;
   font-weight: 600;
   cursor: pointer;
-  padding: 0.5em 1em;
+  padding: 0.5em 1rem;
   border-radius: var(--border-radius);
 
   transition: size 0.3s;
@@ -262,7 +262,7 @@ header img.logo {
 footer {
   width: 100%;
   color: var(--text-color-0);
-  padding: 1em 0;
+  padding: 1rem 0;
   text-align: center;
   border-top: 1px solid var(--surface-color-1);
 }
@@ -270,9 +270,9 @@ footer {
 main {
   width: 100%;
   max-width: 640px;
-  margin: 1em auto;
+  margin: 1rem auto;
   border-radius: var(--border-radius);
-  padding: 1em;
+  padding: 1rem;
   background-color: var(--surface-color-0);
   color: var(--text-color-0);
   box-shadow: var(--box-shadow);
@@ -285,8 +285,7 @@ label {
   width: 100%;
   gap: 0.5em;
 
-  font-size: 0.85em;
-  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 label:has(input[type="number"]) {
@@ -296,13 +295,13 @@ label:has(input[type="number"]) {
 label.row {
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  gap: 1rem;
   align-items: center;
 }
 
 figure {
-  margin: 1em 0;
-  padding: 1em;
+  margin: 1rem 0;
+  padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   background-color: var(--surface-color-2);
@@ -322,6 +321,17 @@ figure img {
   image-rendering: pixelated;
 }
 
+aside {
+  padding: 0 0.5em;
+  font-size: .75em;
+  font-weight: normal;
+  width: fit-content;
+}
+
+.bold {
+  font-weight: 600;
+}
+
 .checkbox-wrap {
   height: 100%;
   width: 2.25em;
@@ -339,7 +349,7 @@ figure img {
 }
 
 .details-wrap {
-  padding: 1em;
+  padding: 1rem;
 }
 
 .details-wrap .input-row {
@@ -348,23 +358,24 @@ figure img {
 
 .input-row {
   display: flex;
-  gap: 1em;
-  margin: 1em 0;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .input-row-mobile {
   display: flex;
   flex-direction: row;
-  gap: 1em;
-  padding: 1em;
+  gap: 1rem;
+  padding: 1rem;
+  padding-bottom: 0;
 }
 
 .input-row-mobile:last-child {
-  padding-top: 0;
+  padding-bottom: 1rem;
 }
 
 .results-gallery-wrap {
-  padding: 1em;
+  padding: 1rem;
   background: var(--surface-color-2);
   background-color: var(--surface-color-2);
   border-radius: var(--border-radius);
@@ -403,7 +414,7 @@ figure img {
 }
 
 #metadata {
-  margin: 1em 0.5em;
+  margin: 1rem 0.5em;
 }
 
 table button {
@@ -514,7 +525,7 @@ table button.delete:hover {
 }
 
 .settings-footer{
-  padding: 1em;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -562,7 +573,7 @@ table button.delete:hover {
 }
 
 .box {
-  padding: 1em;
+  padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   background-color: var(--surface-color-0);
@@ -636,7 +647,7 @@ a.full-image-button:hover {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1em;
+  gap: 1rem;
 }
 
 button#connect {
@@ -645,7 +656,7 @@ button#connect {
   color: var(--surface-color-0);
   border: 1px solid var(--green-1);
   border-radius: var(--border-radius);
-  padding: 0.5em 1em;
+  padding: 0.5em 1rem;
   font-weight: 600;
   box-shadow: var(--box-shadow);
 }
@@ -655,7 +666,7 @@ button#connect {
   color: var(--text-color-0);
   font-weight: 600;
   width: 2em;
-  font-size: 1em;
+  font-size: 1rem;
   align-items: center;
   justify-content: center;
   box-shadow: none;
@@ -732,7 +743,7 @@ button#connect {
     border-radius: 0;
   }
 
-  textarea { font-size: 1em; }
+  textarea { font-size: 1rem; }
 
   input[type="number"]::-webkit-inner-spin-button {
     display: none;
@@ -760,8 +771,8 @@ button#connect {
     border-radius: 0;
   }
 
-  .results { padding: 1em 0; }
-  .results h3 { margin-left: 1em; }
+  .results { padding: 1rem 0; }
+  .results h3 { margin-left: 1rem; }
   .results-gallery-wrap { border-radius: 0; }
 
   #output {

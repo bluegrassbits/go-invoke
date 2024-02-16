@@ -7,7 +7,7 @@
     <meta name="author" content="Bluegrass Bits">
 
     <link rel="icon" href="/img/logo.svg">
-    <link rel="stylesheet" href="/css/style.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>GoInvoke</title>
   </head>
 
@@ -34,11 +34,16 @@
                 type="text"
                 name="address"
                 onkeyup='GOINVOKE.saveThis(this)' required>
+              <aside>
+                <i>The address of this page needs to be added to the
+                  server's <code>allowed_origins</code> list.
+                </i>
+              </aside>
             </label>
           </div>
 
           <div class="input-row-mobile">
-            <label>Basic Auth (optional)</label>
+            <label class="bold">Basic Auth (optional)</label>
           </div>
 
           <div class="input-row-mobile">
