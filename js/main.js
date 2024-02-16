@@ -331,8 +331,8 @@ var GOINVOKE = {
   },
 
   enqueueBatch: function() {
-    const serverAddress = this.getServerAddressFromInput();
-    const model = JSON.parse(this.elms.model_list.value);
+    let serverAddress = this.getServerAddressFromInput();
+    let model = JSON.parse(this.elms.model_list.value);
     let payload = this.initPayload();
     this.elms.generate.disabled = true;
 
@@ -369,7 +369,7 @@ var GOINVOKE = {
   },
 
   fetchImages: function() {
-    const serverAddress = this.getServerAddressFromInput();
+    let serverAddress = this.getServerAddressFromInput();
 
     fetch(`${serverAddress}/api/v1/images/`, {
       credentials: 'include',
@@ -382,12 +382,12 @@ var GOINVOKE = {
       this.elms.gallery.innerHTML = '';
 
       for (let i = 0; i < data.items.length; i++) {
-        const imageContainer = document.createElement('div');
+        let imageContainer = document.createElement('div');
         imageContainer.classList.add('gallery-image-container');
         this.elms.gallery.appendChild(imageContainer);
 
-        const image = data.items[i];
-        const img = document.createElement('img');
+        let image = data.items[i];
+        let img = document.createElement('img');
         img.src = serverAddress + '/' + image.thumbnail_url;
         img.classList.add('gallery-image');
 
@@ -451,11 +451,11 @@ var GOINVOKE = {
         imageContainer.appendChild(img);
 
         // bottom button container
-        const buttonContainer = document.createElement('div');
+        let buttonContainer = document.createElement('div');
         buttonContainer.classList.add('image-button-container');
         imageContainer.appendChild(buttonContainer);
 
-        const deleteButton = document.createElement('button');
+        let deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
         deleteButton.innerHTML = 'Delete';
         deleteButton.onclick = () => {
@@ -479,7 +479,7 @@ var GOINVOKE = {
         };
 
         // add link to full image in new tab
-        const fullImageButton = document.createElement('a');
+        let fullImageButton = document.createElement('a');
         fullImageButton.href = serverAddress + '/' + image.image_url;
         fullImageButton.target = '_blank';
         fullImageButton.innerHTML = 'Full Image';
@@ -500,7 +500,7 @@ var GOINVOKE = {
   },
 
   fetchModels: function() {
-    const serverAddress = this.getServerAddressFromInput();
+    let serverAddress = this.getServerAddressFromInput();
     fetch(`${serverAddress}/api/v1/models/`, {
       credentials: 'include',
     })
@@ -514,7 +514,7 @@ var GOINVOKE = {
 
       data.models.forEach(model => {
         if (model.model_type == 'main') {
-          const option = document.createElement('option');
+          let option = document.createElement('option');
           option.value = JSON.stringify(model);
           option.innerHTML = model.model_name;
           this.elms.model_list.appendChild(option);
@@ -569,9 +569,9 @@ var GOINVOKE = {
 
     this.socket.on('queue_item_status_changed', (data) => {
       console.log('queue_item_status_changed', data);
-      const pending = data.queue_status.pending;
-      const pendingCount = document.getElementById('pending-count');
-      const pendingText = document.getElementById('pending');
+      let pending = data.queue_status.pending;
+      let pendingCount = document.getElementById('pending-count');
+      let pendingText = document.getElementById('pending');
 
       if (pending > 0) {
         this.elms.cancel.disabled = false;
