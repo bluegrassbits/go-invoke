@@ -36,7 +36,7 @@ body, html {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: var(--document-background-color);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body, h1, h2, h3, h4, h5, h6, p {
@@ -738,12 +738,19 @@ button#connect {
 
 
 @media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
   input[type="number"] {
     background-image: none;
     border-radius: 0;
   }
 
-  textarea { font-size: 1rem; }
+  input,
+  textarea {
+    font-size: 1rem;
+  }
 
   input[type="number"]::-webkit-inner-spin-button {
     display: none;
