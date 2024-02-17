@@ -264,8 +264,12 @@ var GOINVOKE = {
   },
 
   shuffleSeed: function(e) {
-    this.elms.seed.value = Math.floor(Math.random() * 1000000000);
-    this.saveThis({ id: 'seed', value: this.elms.seed.value });
+    try {
+      this.elms.seed.value = Math.floor(Math.random() * 1000000000);
+      this.saveThis({ id: 'seed', value: this.elms.seed.value });
+    } catch (error) {
+      this.displayError(error);
+    }
   },
 
   stepUp: function(e, id) {
