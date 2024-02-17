@@ -267,7 +267,6 @@ var GOINVOKE = {
     try {
       let seed = Math.floor(Math.random() * 1000000000);
       this.elms.seed.value = seed;
-      console.log('Seed shuffled: ', this.elms.seed.value);
       this.saveThis({ id: 'seed', value: this.elms.seed.value });
     } catch (error) {
       this.displayError(error);
