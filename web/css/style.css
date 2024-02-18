@@ -50,7 +50,6 @@ section h3 { margin: 0 0 1rem 0; }
 section {
   padding: 1rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
 }
 
 input,
@@ -270,13 +269,34 @@ footer {
 
 main {
   width: 100%;
-  max-width: 900px;
+  max-width: 90%;
   margin: 1rem auto;
   border-radius: var(--border-radius);
   padding: 1rem;
   background-color: var(--surface-color-0);
   color: var(--text-color-0);
   box-shadow: var(--box-shadow);
+
+  display: flex;
+  flex-direction: row;
+}
+
+section.settings {
+  width: 100%;
+  max-width: 45%;
+}
+
+.results {
+  padding: 0;
+}
+
+.results-wrap {
+  width: 100%;
+  max-width: 55%;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--surface-color-0);
+  color: var(--text-color-0);
 }
 
 label {
@@ -302,7 +322,7 @@ label.row {
 }
 
 figure {
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
   padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -527,16 +547,11 @@ table button.delete:hover {
 }
 
 .settings-footer{
-  padding: 1rem;
+  padding: 0 0 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 0.5em;
-
-  box-shadow: inset var(--box-shadow);
-  background-color: var(--surface-color-2);
-  border-radius: var(--border-radius);
 }
 
 .submit-wrap {
@@ -712,7 +727,7 @@ button#connect {
 
 .spinner-buttons {
   display: flex;
-  height: 2.5em;
+  height: 100%;
   flex-direction: column;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   border: 1px solid var(--surface-color-1);
@@ -782,6 +797,7 @@ button#connect {
   main {
     padding: 0;
     border-radius: 0;
+    flex-direction: column;
   }
 
   .results { padding: 1rem 0; }
@@ -799,6 +815,21 @@ button#connect {
 
 @media (max-width: 1080px) {
   .input-row { flex-direction: column; }
+
+  main {
+    max-width: 100%;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  section.settings {
+    max-width: 100%;
+  }
+
+  .results-wrap {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
 }
 
 /* width */
