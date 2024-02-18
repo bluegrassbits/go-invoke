@@ -43,10 +43,15 @@
           </div>
 
           <div class="input-row-mobile">
-            <label class="bold">Basic Auth (optional)</label>
+            <label class="bold row">
+                <input
+                  id="basic_auth"
+                  type="checkbox"
+                  name="basic_auth">Basic Auth (optional)
+            </label>
           </div>
 
-          <div class="input-row-mobile">
+          <div id="basic-auth-form" class="input-row-mobile">
             <label for="username">Username
               <input
                 placeholder="username"
@@ -336,7 +341,7 @@
         </a>
       </p>
     </footer>
-    <script src="/js/main.js"></script>
-    <script src="/js/socket.io.min.js"></script>
+    <script src="js/socket.io.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

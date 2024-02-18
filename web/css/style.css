@@ -298,6 +298,7 @@ label.row {
   flex-direction: row;
   gap: 1rem;
   align-items: center;
+  padding-bottom: 1em;
 }
 
 figure {
@@ -649,6 +650,10 @@ a.full-image-button:hover {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
+}
+
+.basic-auth-form {
+  display: none;
 }
 
 button#connect {

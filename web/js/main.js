@@ -75,6 +75,8 @@ var GOINVOKE = {
     password: document.getElementById('password'),
     connect: document.getElementById('connect'),
     shuffle: document.getElementById('shuffle'),
+    basic_auth: document.getElementById('basic_auth'),
+    basic_auth_form: document.getElementById('basic-auth-form'),
   },
 
   config: {
@@ -90,7 +92,7 @@ var GOINVOKE = {
     width: 512,
     seed: 0,
     username: '',
-    basic_auth: '',
+    basic_auth: 'false',
     positive_prompt: "a painting of a cat",
     negative_prompt: "cartoon, painting, illustration, " +
       "(worst quality, low quality, normal quality:2), " +
@@ -143,11 +145,19 @@ var GOINVOKE = {
               this.elms.seed.disabled = el.checked;
             }
 
+            if(key == 'basic_auth') {
+              this.elms.basic_auth_form.style.display = el.checked ? 'block' : 'none';
+            }
+
             el.onchange = () => {
               this.saveThis({id: key, value: el.checked});
 
               if(key == 'random') {
                 this.elms.seed.disabled = el.checked;
+              }
+
+              if(key == 'basic_auth') {
+                this.elms.basic_auth_form.style.display = el.checked ? 'block' : 'none';
               }
             };
             break;
@@ -377,7 +387,7 @@ var GOINVOKE = {
     let serverAddress = this.getServerAddressFromInput();
 
     fetch(`${serverAddress}/api/v1/images/`, {
-      credentials: 'include',
+      credentials: this.config.basic_auth ? 'include' : 'omit',
     }).then(response => {
       if (response.ok) {
         return response.json();
@@ -410,7 +420,7 @@ var GOINVOKE = {
           }
 
           fetch(`${serverAddress}/api/v1/images/i/${image.image_name}/metadata`, {
-            credentials: 'include',
+            credentials: this.config.basic_auth ? 'include' : 'omit',
           }).then(response => {
             if (response.ok) {
               return response.json();
@@ -507,7 +517,7 @@ var GOINVOKE = {
   fetchModels: function() {
     let serverAddress = this.getServerAddressFromInput();
     fetch(`${serverAddress}/api/v1/models/`, {
-      credentials: 'include',
+      credentials: this.config.basic_auth ? 'include' : 'omit',
     })
     .then(response => {
       if (response.ok) {
