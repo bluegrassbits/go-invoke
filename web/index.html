@@ -256,74 +256,76 @@
 
       </section>
 
-      <div class="results-wrap">
-      <figure>
-        <div class="settings-footer">
-          <div class="submit-wrap">
-            <div class="pending-count" id="pending-count">
-              <span id="pending">0</span>
+      <section class="results-wrap">
+        <h3 class="section-header">Output</h3>
+        <figure>
+          <div class="settings-footer">
+            <div class="submit-wrap">
+              <div class="pending-count" id="pending-count">
+                <span id="pending">0</span>
+              </div>
+
+              <button id="generate" class="submit">Invoke</button>
+
+              <input
+                id="queue_size"
+                type="number"
+                inputmode="numeric"
+                name="queue_size"
+                min="1"
+                step="1"
+                required>
+
+              <div class="spinner-buttons">
+                <button
+                  data-action="increment"
+                  data-target="queue_size"
+                  class="spinner-button">+</button>
+                <button
+                  data-action="decrement"
+                  data-target="queue_size"
+                  class="spinner-button">-</button>
+              </div>
             </div>
 
-            <button id="generate" class="submit">Invoke</button>
+            <button id="cancel"
+              class="icon-button"
+              title="Cancel current invocation" disabled>&#x2715;</button>
 
-            <input
-              id="queue_size"
-              type="number"
-              inputmode="numeric"
-              name="queue_size"
-              min="1"
-              step="1"
-              required>
+            <button id="clear"
+              class="icon-button"
+              title="Clear Queue" disabled>&#x2297;</button>
+          </div>
 
-            <div class="spinner-buttons">
-              <button
-                data-action="increment"
-                data-target="queue_size"
-                class="spinner-button">+</button>
-              <button
-                data-action="decrement"
-                data-target="queue_size"
-                class="spinner-button">-</button>
+          <div class="percent-wrap">
+            <div class="percent">
+              <div class="percent-bar" id="percent-bar"></div>
             </div>
           </div>
 
-          <button id="cancel"
-            class="icon-button"
-            title="Cancel current invocation" disabled>&#x2715;</button>
-
-          <button id="clear"
-            class="icon-button"
-            title="Clear Queue" disabled>&#x2297;</button>
-        </div>
-        <div class="box error-box" id="error">
-        </div>
-        <img id="output"
-          src=""
-          onerror="this.src='img/logo.svg'"
-          alt="Generated Image">
-
-        <div class="percent-wrap">
-          <div class="percent">
-            <div class="percent-bar" id="percent-bar"></div>
+          <div class="box error-box" id="error">
           </div>
-        </div>
+          <img id="output"
+            src=""
+            onerror="this.src='img/logo.svg'"
+            alt="Generated Image">
 
-      </figure>
+        </figure>
 
-      <section class="results">
-        <h3>Results</h3>
+        <section class="results">
+          <h3>Results</h3>
 
-        <div class="results-gallery-wrap">
-          <div class="results-gallery" id="results-gallery">
+          <div class="results-gallery-wrap">
+            <div class="results-gallery" id="results-gallery">
+            </div>
           </div>
-        </div>
 
-        <div id="metadata">
-          <table id="metadata-table" class="metadata-table">
-          </table>
-        </div>
+          <div id="metadata">
+            <table id="metadata-table" class="metadata-table">
+            </table>
+          </div>
+        </section>
       </section>
-      </div>
     </main>
 
     <footer>

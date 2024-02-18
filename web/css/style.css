@@ -45,7 +45,7 @@ body, h1, h2, h3, h4, h5, h6, p {
   padding: 0;
 }
 
-section h3 { margin: 0 0 1rem 0; }
+h3 { margin: 0 0 1rem 0; }
 
 section {
   padding: 1rem;
@@ -270,12 +270,10 @@ footer {
 main {
   width: 100%;
   max-width: 90%;
-  margin: 1rem auto;
+  margin: 0rem auto;
   border-radius: var(--border-radius);
   padding: 1rem;
-  background-color: var(--surface-color-0);
   color: var(--text-color-0);
-  box-shadow: var(--box-shadow);
 
   display: flex;
   flex-direction: row;
@@ -294,8 +292,6 @@ section.settings {
   width: 100%;
   max-width: 55%;
   padding: 1rem;
-  border-radius: var(--border-radius);
-  background-color: var(--surface-color-0);
   color: var(--text-color-0);
 }
 
@@ -523,21 +519,19 @@ table button.delete:hover {
 }
 
 
-.percent-wrapper {
-  display: flex;
+.percent-wrap {
   align-items: center;
-  gap: 0.5em;
+  padding: 0.5em 0;
 }
 
 .percent {
   background-color: var(--surface-color-1);
   border-radius: var(--border-radius);
-  margin-top: 0.5em;
 }
 
 .percent-bar {
   width: 0%;
-  height: 0.5em;
+  height: 0.25em;
   background-color: var(--green-1);
   border-radius: var(--border-radius);
 
@@ -547,7 +541,6 @@ table button.delete:hover {
 }
 
 .settings-footer{
-  padding: 0 0 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -787,6 +780,7 @@ button#connect {
     padding: 0.5em;
     margin: 0;
     background-color: transparent;
+    box-shadow: none;
   }
 
   figure img {
