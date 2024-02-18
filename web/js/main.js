@@ -7,22 +7,10 @@ var GOINVOKE = {
   selectedImage: null,
 
   sections: {
-    prompt: {
-      open: true,
-      elm: document.getElementById('prompt')
-    },
-    generation: {
-      open: true,
-      elm: document.getElementById('generation')
-    },
-    image: {
-      open: true,
-      elm: document.getElementById('image')
-    },
-    server: {
-      open: true,
-      elm: document.getElementById('server')
-    },
+    prompt: { open: true, elm: document.getElementById('prompt') },
+    generation: { open: true, elm: document.getElementById('generation') },
+    image: { open: true, elm: document.getElementById('image') },
+    server: { open: true, elm: document.getElementById('server') },
   },
 
   schedulers: { "ddim": "ddim", "ddpm": "ddpm", "deis": "deis", "lms": "lms",
@@ -370,7 +358,7 @@ var GOINVOKE = {
   fetchImages: function() {
     let serverAddress = this.getServerAddressFromInput();
 
-    fetch(`${serverAddress}/api/v1/images/`, {
+    fetch(`${serverAddress}/api/v1/images/?limit=100`, {
       credentials: this.config.basic_auth ? 'include' : 'omit',
     }).then(response => {
       if (response.ok) {

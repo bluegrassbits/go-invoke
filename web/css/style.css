@@ -321,7 +321,7 @@ figure {
   margin: 0 0 1rem 0;
   padding: 1rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
+  box-shadow: inset var(--box-shadow);
   background-color: var(--surface-color-2);
 }
 
