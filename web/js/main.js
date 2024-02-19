@@ -23,33 +23,15 @@ var GOINVOKE = {
     "lcm": "lcm",
   },
 
-  elms: {
-    address: document.getElementById('address'),
-    model_list: document.getElementById('model'),
-    positive_prompt: document.getElementById('positive_prompt'),
-    negative_prompt: document.getElementById('negative_prompt'),
-    steps: document.getElementById('steps'),
-    cfg_scale: document.getElementById('cfg_scale'),
-    height: document.getElementById('height'),
-    width: document.getElementById('width'),
-    queue_size: document.getElementById('queue_size'),
-    seed: document.getElementById('seed'),
-    random: document.getElementById('random'),
-    percentBar: document.getElementById('percent-bar'),
-    generate: document.getElementById('generate'),
-    cancel: document.getElementById('cancel'),
-    clear: document.getElementById('clear'),
-    scheduler: document.getElementById('scheduler'),
-    output: document.getElementById('output'),
-    error: document.getElementById('error'),
-    gallery: document.getElementById('results-gallery'),
-    username: document.getElementById('username'),
-    password: document.getElementById('password'),
-    connect: document.getElementById('connect'),
-    shuffle: document.getElementById('shuffle'),
-    basic_auth: document.getElementById('basic_auth'),
-    basic_auth_form: document.getElementById('basic-auth-form'),
-  },
+  element_ids: [
+    'address', 'model', 'positive_prompt', 'negative_prompt', 'steps',
+    'cfg_scale', 'height', 'width', 'queue_size', 'seed', 'random',
+    'percent_bar', 'generate', 'cancel', 'clear', 'scheduler', 'output',
+    'error', 'gallery', 'username', 'password', 'connect', 'shuffle',
+    'basic_auth', 'basic_auth_form',
+  ],
+
+  elms: {},
 
   config: {
     queue_id: 'default',
@@ -72,6 +54,10 @@ var GOINVOKE = {
   },
 
   init: function() {
+    for (let id of this.element_ids) {
+      this.elms[id] = document.getElementById(id);
+    }
+
     // populate scheduler dropdown
     for (var key in this.schedulers) {
       var el = document.createElement('option');
@@ -294,7 +280,7 @@ var GOINVOKE = {
         console.log('Generation cancelled');
         this.elms.cancel.disabled = false;
         this.elms.clear.disabled = false;
-        this.elms.percentBar.style.width = '0%';
+        this.elms.percent_bar.style.width = '0%';
         this.elms.output.src = '';
       }
     });
@@ -311,7 +297,7 @@ var GOINVOKE = {
     .then(response => {
       if (response.ok) {
         console.log('Queue cleared');
-        this.elms.percentBar.style.width = '0%';
+        this.elms.percent_bar.style.width = '0%';
         this.elms.output.src = '';
       }
     });
@@ -319,7 +305,7 @@ var GOINVOKE = {
 
   enqueueBatch: function() {
     let serverAddress = this.getServerAddressFromInput();
-    let model = JSON.parse(this.elms.model_list.value);
+    let model = JSON.parse(this.elms.model.value);
     let payload = this.initPayload();
     this.elms.generate.disabled = true;
 
@@ -497,15 +483,15 @@ var GOINVOKE = {
       }
     })
     .then(data => {
-      this.elms.model_list.innerHTML = '';
+      this.elms.model.innerHTML = '';
 
       data.models.forEach(model => {
         if (model.model_type == 'main') {
           let option = document.createElement('option');
           option.value = JSON.stringify(model);
           option.innerHTML = model.model_name;
-          this.elms.model_list.appendChild(option);
-          this.getSaved('model') == JSON.stringify(model) ? this.elms.model_list.value = JSON.stringify(model) : null;
+          this.elms.model.appendChild(option);
+          this.getSaved('model') == JSON.stringify(model) ? this.elms.model.value = JSON.stringify(model) : null;
         }
       })
       this.initSocket(serverAddress);
@@ -535,8 +521,8 @@ var GOINVOKE = {
       let step = data.step;
       let totalSteps = data.total_steps;
       this.queueItemID = data.queue_item_id;
-      this.elms.percentBar.style.width = Math.floor((step / totalSteps) * 100) + '%';
-      this.elms.percentBar.style.border = '1px solid var(--ok-graphical-fg)';
+      this.elms.percent_bar.style.width = Math.floor((step / totalSteps) * 100) + '%';
+      this.elms.percent_bar.style.border = '1px solid var(--ok-graphical-fg)';
       this.elms.cancel.disabled = false;
       this.elms.clear.disabled = false;
       this.generationPercentDone = Math.floor((step / totalSteps) * 100);
@@ -591,7 +577,7 @@ var GOINVOKE = {
 
       if(this.generatorResult.image) {
         console.log('invocation_complete', data);
-        this.elms.percentBar.style.width = '100%';
+        this.elms.percent_bar.style.width = '100%';
 
         this.selectedImage = null;
 
@@ -605,7 +591,7 @@ var GOINVOKE = {
 
         this.fetchImages();
         setTimeout(() => {
-          this.elms.percentBar.style.width = '0%';
+          this.elms.percent_bar.style.width = '0%';
         }
         , 2500);
       }
@@ -631,7 +617,7 @@ var GOINVOKE = {
     }
 
     var prompt = this.config.positive_prompt;
-    var model = JSON.parse(this.elms.model_list.value);
+    var model = JSON.parse(this.elms.model.value);
 
     var payload = {
       "queue_id": this.config.queue_id,
@@ -660,40 +646,26 @@ var GOINVOKE = {
           "nodes": {
             "main_model_loader": {
               "id": "main_model_loader",
-              "is_intermediate": true,
-              "use_cache": true,
-              "model": {
-                "model_name": model.model_name,
-                "base_model": model.base_model,
-                "model_type": model.model_type
-              },
+              "model": model,
               "type": "main_model_loader"
             },
             "clip_skip": {
               "id": "clip_skip",
-              "is_intermediate": true,
-              "use_cache": true,
               "skipped_layers": 0,
               "type": "clip_skip"
             },
             "positive_conditioning": {
               "id": "positive_conditioning",
-              "is_intermediate": true,
-              "use_cache": true,
               "prompt": this.config.positive_prompt,
               "type": "compel"
             },
             "negative_conditioning": {
               "id": "negative_conditioning",
-              "is_intermediate": true,
-              "use_cache": true,
               "prompt": this.config.negative_prompt,
               "type": "compel"
             },
             "noise": {
               "id": "noise",
-              "is_intermediate": true,
-              "use_cache": true,
               "width": this.config.width,
               "height": this.config.height,
               "seed": parseInt(this.config.seed),
@@ -702,8 +674,6 @@ var GOINVOKE = {
             },
             "denoise_latents": {
               "id": "denoise_latents",
-              "is_intermediate": true,
-              "use_cache": true,
               "steps": this.config.steps,
               "cfg_scale": this.config.cfg_scale,
               "denoising_start": 0,
@@ -714,16 +684,12 @@ var GOINVOKE = {
             },
             "latents_to_image": {
               "id": "latents_to_image",
-              "is_intermediate": true,
-              "use_cache": false,
               "tiled": false,
               "fp32": true,
               "type": "l2i"
             },
             "core_metadata": {
               "id": "core_metadata",
-              "is_intermediate": false,
-              "use_cache": true,
               "generation_mode": "txt2img",
               "negative_prompt": this.config.negative_prompt,
               "width": this.config.width,
@@ -734,17 +700,11 @@ var GOINVOKE = {
               "steps": this.config.steps,
               "scheduler": this.config.scheduler,
               "clip_skip": 0,
-              "model": {
-                "model_name": model.model_name,
-                "base_model": model.base_model,
-                "model_type": model.model_type
-              },
+              "model": model,
               "type": "core_metadata"
             },
             "linear_ui_output": {
               "id": "linear_ui_output",
-              "is_intermediate": false,
-              "use_cache": false,
               "type": "linear_ui_output"
             }
           },
@@ -807,8 +767,7 @@ var GOINVOKE = {
               "destination": { "node_id": "linear_ui_output", "field": "image" }
             }
           ]
-        },
-        "runs": 1
+        }
       }
     };
 
